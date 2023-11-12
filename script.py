@@ -197,7 +197,7 @@ bokeh_plot.scatter(
     x='age',
     y='finalWorth',
     color='country',
-    fill_color='industry',
+    fill_color='industries',
     source=billionaires,
 )
 show(bokeh_plot)
