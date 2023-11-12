@@ -3,13 +3,11 @@
 # It is defined by the kaggle/python Docker image: https://github.com/kaggle/docker-python
 # For example, here's several helpful packages to load
 
-import numpy as np # linear algebra
-import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)
-
 # Input data files are available in the read-only "../input/" directory
 # For example, running this (by clicking run or pressing Shift+Enter) will list all files under the input directory
 
 import os
+
 for dirname, _, filenames in os.walk('/kaggle/input'):
     for filename in filenames:
         print(os.path.join(dirname, filename))
@@ -19,15 +17,10 @@ for dirname, _, filenames in os.walk('/kaggle/input'):
 
 # %% [code] {"execution":{"iopub.status.busy":"2023-10-29T08:48:48.758748Z","iopub.execute_input":"2023-10-29T08:48:48.759302Z","iopub.status.idle":"2023-10-29T08:48:51.024936Z","shell.execute_reply.started":"2023-10-29T08:48:48.759255Z","shell.execute_reply":"2023-10-29T08:48:51.024036Z"}}
 import pandas as pd
-import numpy as np
-import matplotlib.pyplot as plt
 import seaborn as sns
-from bokeh.plotting import figure, show
-
 
 # %% [code] {"execution":{"iopub.status.busy":"2023-10-29T08:48:51.02622Z","iopub.execute_input":"2023-10-29T08:48:51.027093Z","iopub.status.idle":"2023-10-29T08:48:51.08606Z","shell.execute_reply.started":"2023-10-29T08:48:51.027054Z","shell.execute_reply":"2023-10-29T08:48:51.085166Z"}}
-billionaires = pd.read_csv('../input/billionaires-statistics-dataset/Billionaires Statistics Dataset.csv')
-
+billionaires = pd.read_csv('billionaires-statistics-dataset.csv')
 
 # %% [code] {"execution":{"iopub.status.busy":"2023-10-29T08:48:51.089354Z","iopub.execute_input":"2023-10-29T08:48:51.090238Z","iopub.status.idle":"2023-10-29T08:48:51.121219Z","shell.execute_reply.started":"2023-10-29T08:48:51.09019Z","shell.execute_reply":"2023-10-29T08:48:51.120135Z"}}
 billionaires.head().T
@@ -40,11 +33,8 @@ billionaires.info()
 # Get the summary of the dataset
 billionaires.describe()
 
-
-
 # %% [code] {"execution":{"iopub.status.busy":"2023-10-29T08:48:51.231605Z","iopub.execute_input":"2023-10-29T08:48:51.231937Z","iopub.status.idle":"2023-10-29T08:48:51.60334Z","shell.execute_reply.started":"2023-10-29T08:48:51.231907Z","shell.execute_reply":"2023-10-29T08:48:51.60197Z"}}
 import matplotlib.pyplot as plt
-
 
 # Filter the data to only include billionaires who are at least 30 years old
 filtered_billionaires = billionaires[(billionaires['age'] >= 30) & (billionaires['finalWorth'] > 0)]
@@ -82,11 +72,9 @@ print(f'Percentage of billionaires who are male: {percentage}%\n')
 avg_finalWorth = billionaires.groupby('country')['finalWorth'].mean()
 print(f'Average net worth of billionaires by country: {avg_finalWorth}\n')
 
-
 # %% [code] {"execution":{"iopub.status.busy":"2023-10-29T08:48:52.308623Z","iopub.execute_input":"2023-10-29T08:48:52.309736Z","iopub.status.idle":"2023-10-29T08:48:52.777949Z","shell.execute_reply.started":"2023-10-29T08:48:52.30969Z","shell.execute_reply":"2023-10-29T08:48:52.777048Z"}}
 # Get the distribution of the 'finalWorth' column
 sns.distplot(billionaires['finalWorth'])
-
 
 # %% [code] {"execution":{"iopub.status.busy":"2023-10-29T08:48:52.782238Z","iopub.execute_input":"2023-10-29T08:48:52.782893Z","iopub.status.idle":"2023-10-29T08:48:52.84218Z","shell.execute_reply.started":"2023-10-29T08:48:52.782859Z","shell.execute_reply":"2023-10-29T08:48:52.841043Z"}}
 billionaires.dropna()
@@ -111,8 +99,6 @@ corr_matrix = billionaires[numerical_columns].corr()
 fig, ax = plt.subplots(figsize=(12, 8))
 sns.heatmap(corr_matrix, annot=True, ax=ax)
 
-
-
 # %% [code] {"execution":{"iopub.status.busy":"2023-10-29T08:48:54.385147Z","iopub.execute_input":"2023-10-29T08:48:54.385472Z","iopub.status.idle":"2023-10-29T08:48:54.736135Z","shell.execute_reply.started":"2023-10-29T08:48:54.385444Z","shell.execute_reply":"2023-10-29T08:48:54.734846Z"}}
 import matplotlib.pyplot as plt
 
@@ -127,7 +113,6 @@ plt.xlabel('Age')
 plt.ylabel('Average Final Worth (USD Millions)')
 plt.show()
 
-
 # %% [code] {"execution":{"iopub.status.busy":"2023-10-29T08:48:54.737543Z","iopub.execute_input":"2023-10-29T08:48:54.738518Z","iopub.status.idle":"2023-10-29T08:48:55.10375Z","shell.execute_reply.started":"2023-10-29T08:48:54.738476Z","shell.execute_reply":"2023-10-29T08:48:55.10259Z"}}
 from bokeh.plotting import figure, show
 
@@ -140,16 +125,12 @@ bokeh_plot = figure(
 bokeh_plot.circle(x='finalWorth', y='age', size=10, color='blue', alpha=0.5, source=billionaires)
 show(bokeh_plot)
 
-
 # %% [code] {"execution":{"iopub.status.busy":"2023-10-29T08:48:55.105551Z","iopub.execute_input":"2023-10-29T08:48:55.106043Z","iopub.status.idle":"2023-10-29T08:48:57.632554Z","shell.execute_reply.started":"2023-10-29T08:48:55.10596Z","shell.execute_reply":"2023-10-29T08:48:57.631359Z"}}
-import pandas as pd
-import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 from bokeh.plotting import figure, show
 
 fig, ax = plt.subplots(figsize=(24, 48))
-
 
 # Box plot of final worth by country
 sns.boxplot(
@@ -159,8 +140,6 @@ sns.boxplot(
     data=billionaires, ax=ax
 )
 plt.show()
-
-
 
 # %% [code] {"execution":{"iopub.status.busy":"2023-10-29T08:48:57.634475Z","iopub.execute_input":"2023-10-29T08:48:57.634924Z","iopub.status.idle":"2023-10-29T08:48:58.344568Z","shell.execute_reply.started":"2023-10-29T08:48:57.634881Z","shell.execute_reply":"2023-10-29T08:48:58.343585Z"}}
 # Histogram of the age distribution of billionaires
@@ -182,8 +161,6 @@ bokeh_plot.scatter(
     source=billionaires,
 )
 show(bokeh_plot)
-
-
 
 # %% [code] {"execution":{"iopub.status.busy":"2023-10-29T08:48:58.345932Z","iopub.execute_input":"2023-10-29T08:48:58.346304Z","iopub.status.idle":"2023-10-29T08:48:58.399686Z","shell.execute_reply.started":"2023-10-29T08:48:58.346273Z","shell.execute_reply":"2023-10-29T08:48:58.39853Z"}}
 # Bar chart of the number of billionaires by self-made status and gender
@@ -207,7 +184,6 @@ bokeh_plot.vbar(
 )
 show
 
-
 # %% [code] {"execution":{"iopub.status.busy":"2023-10-29T08:48:58.401757Z","iopub.execute_input":"2023-10-29T08:48:58.402943Z","iopub.status.idle":"2023-10-29T08:48:58.742727Z","shell.execute_reply.started":"2023-10-29T08:48:58.402896Z","shell.execute_reply":"2023-10-29T08:48:58.741612Z"}}
 
 
@@ -228,8 +204,8 @@ show(bokeh_plot)
 
 # %% [code] {"execution":{"iopub.status.busy":"2023-10-29T08:48:58.744045Z","iopub.execute_input":"2023-10-29T08:48:58.74437Z","iopub.status.idle":"2023-10-29T08:49:07.903909Z","shell.execute_reply.started":"2023-10-29T08:48:58.744341Z","shell.execute_reply":"2023-10-29T08:49:07.902962Z"}}
 import folium
-import pandas as pd
-#import color_palette as cp
+
+# import color_palette as cp
 
 billionaires.dropna()
 # Replace NaN values with None
@@ -239,13 +215,12 @@ billionaires.longitude_country = billionaires.longitude_country.fillna(0.0)
 # Create a folium map
 map = folium.Map(location=[0, 0], zoom_start=2)
 
-
 # Add markers to the map for each billionaire, colored by industry
 for index, billionaire in billionaires.iterrows():
     folium.Marker(
         location=[billionaire.latitude_country, billionaire.longitude_country],
         popup=f'{billionaire.personName} ({billionaire.finalWorth:.2f}B)',
- #       color=billionaire.industry,
+        #       color=billionaire.industry,
     ).add_to(map)
 
 # Add a layer control to the map
@@ -264,10 +239,9 @@ G = nx.Graph()
 for i, row in billionaires.iterrows():
     G.add_node(row['personName'])
     G.add_edge(row['personName'], row['source'])
-nx.draw_networkx(G, pos=nx.draw_spectral(G),with_labels=True, font_weight='normal')
+nx.draw_networkx(G, pos=nx.draw_spectral(G), with_labels=True, font_weight='normal')
 plt.title('Connections Between Billionaires and Their Businesses')
 plt.show()
-
 
 # %% [code] {"execution":{"iopub.status.busy":"2023-10-29T08:50:23.561172Z","iopub.execute_input":"2023-10-29T08:50:23.561549Z","iopub.status.idle":"2023-10-29T08:50:28.268663Z","shell.execute_reply.started":"2023-10-29T08:50:23.561515Z","shell.execute_reply":"2023-10-29T08:50:28.267469Z"}}
 # Create a map to show the location of billionaires by country
@@ -291,16 +265,16 @@ plt.xlabel('Net Worth')
 plt.show()
 
 # %% [code] {"execution":{"iopub.status.busy":"2023-10-29T08:50:31.94675Z","iopub.execute_input":"2023-10-29T08:50:31.947203Z","iopub.status.idle":"2023-10-29T08:50:35.101289Z","shell.execute_reply.started":"2023-10-29T08:50:31.947161Z","shell.execute_reply":"2023-10-29T08:50:35.100131Z"}}
-x=plt.figure(figsize=(10,22))
-ax = sns.barplot(y=billionaires["country"],                 
-                 x=billionaires["finalWorth"],estimator=sum,color="y")
+x = plt.figure(figsize=(10, 22))
+ax = sns.barplot(y=billionaires["country"],
+                 x=billionaires["finalWorth"], estimator=sum, color="y")
 ax.set_title('Country vs Worth ')
 ax.set(xlabel='Final Worth', ylabel='Country')
 
 # %% [code] {"execution":{"iopub.status.busy":"2023-10-29T08:50:35.10272Z","iopub.execute_input":"2023-10-29T08:50:35.103879Z","iopub.status.idle":"2023-10-29T08:50:36.610804Z","shell.execute_reply.started":"2023-10-29T08:50:35.103839Z","shell.execute_reply":"2023-10-29T08:50:36.609629Z"}}
-x=plt.figure(figsize=(10,22))
-ax = sns.barplot(y=billionaires["industries"],                 
-                 x=billionaires["finalWorth"],estimator=sum,color="b")
+x = plt.figure(figsize=(10, 22))
+ax = sns.barplot(y=billionaires["industries"],
+                 x=billionaires["finalWorth"], estimator=sum, color="b")
 ax.set_title('Industry vs Worth ')
 ax.set(xlabel='Final Worth', ylabel='Industry')
 
@@ -308,8 +282,6 @@ ax.set(xlabel='Final Worth', ylabel='Industry')
 plt.boxplot(billionaires['finalWorth'])
 plt.title('Final Worth Distribution')
 plt.ylabel('Final Worth')
-
-
 
 # %% [code] {"execution":{"iopub.status.busy":"2023-10-29T08:50:36.84185Z","iopub.execute_input":"2023-10-29T08:50:36.842215Z","iopub.status.idle":"2023-10-29T08:50:37.877195Z","shell.execute_reply.started":"2023-10-29T08:50:36.842183Z","shell.execute_reply":"2023-10-29T08:50:37.876014Z"}}
 # Distribution of final worth
@@ -320,14 +292,14 @@ plt.title('Distribution of Final Worth')
 plt.show()
 
 #  chart of final worth by category
-plt.scatter(billionaires['finalWorth'],billionaires['category'])
+plt.scatter(billionaires['finalWorth'], billionaires['category'])
 plt.xlabel('Category')
 plt.ylabel('Final Worth (USD)')
 plt.title('Final Worth by Category')
 plt.show()
 
 # Scatter plot of final worth vs. age
-plt.scatter(billionaires['finalWorth'],billionaires['age'])
+plt.scatter(billionaires['finalWorth'], billionaires['age'])
 plt.ylabel('Age')
 plt.xlabel('Final Worth (USD)')
 plt.title('Final Worth vs. Age')
@@ -342,6 +314,7 @@ plt.show()
 
 # %% [code] {"execution":{"iopub.status.busy":"2023-10-29T08:50:39.552364Z","iopub.execute_input":"2023-10-29T08:50:39.552807Z","iopub.status.idle":"2023-10-29T08:50:42.575502Z","shell.execute_reply.started":"2023-10-29T08:50:39.552776Z","shell.execute_reply":"2023-10-29T08:50:42.574304Z"}}
 import plotly.express as px
+
 # Choropleth map of final worth by country
 fig = px.choropleth(billionaires, locations='country', color='finalWorth', scope='world',
                     color_continuous_scale='Viridis')
@@ -364,17 +337,17 @@ plt.show()
 
 # %% [code] {"execution":{"iopub.status.busy":"2023-10-29T08:52:41.94197Z","iopub.execute_input":"2023-10-29T08:52:41.942428Z","iopub.status.idle":"2023-10-29T08:52:42.055305Z","shell.execute_reply.started":"2023-10-29T08:52:41.942393Z","shell.execute_reply":"2023-10-29T08:52:42.054143Z"}}
 # Create a parallel coordinates plot to show the relationship between different features of billionaires
-fig = px.parallel_coordinates(billionaires, 
-                              dimensions=['age', 'finalWorth', 'rank', 'cpi_country', 
+fig = px.parallel_coordinates(billionaires,
+                              dimensions=['age', 'finalWorth', 'rank', 'cpi_country',
                                           'gdp_country', 'gross_tertiary_education_enrollment',
                                           'gross_primary_education_enrollment_country', 'life_expectancy_country',
-                                          'tax_revenue_country_country', 'total_tax_rate_country', 'population_country'])
+                                          'tax_revenue_country_country', 'total_tax_rate_country',
+                                          'population_country'])
 fig.update_layout(title='Relationship Between Different Features of Billionaires')
 fig.show()
 
 # %% [code] {"execution":{"iopub.status.busy":"2023-10-29T08:54:27.891468Z","iopub.execute_input":"2023-10-29T08:54:27.891893Z","iopub.status.idle":"2023-10-29T08:54:28.118653Z","shell.execute_reply.started":"2023-10-29T08:54:27.891856Z","shell.execute_reply":"2023-10-29T08:54:28.117492Z"}}
 import plotly.express as px
-import plotly.graph_objects as go
 
 # Create a bar chart of the number of billionaires in each category
 fig = px.bar(billionaires, x='category', y='rank', color='finalWorth')
@@ -392,15 +365,16 @@ fig = px.choropleth(billionaires, locations='country', color='finalWorth', scope
 fig.update_layout(title='Final Worth by Country')
 fig.show()
 
-
-
 # %% [code] {"execution":{"iopub.status.busy":"2023-10-29T08:54:46.813705Z","iopub.execute_input":"2023-10-29T08:54:46.814108Z","iopub.status.idle":"2023-10-29T08:54:46.888201Z","shell.execute_reply.started":"2023-10-29T08:54:46.814076Z","shell.execute_reply":"2023-10-29T08:54:46.887111Z"}}
 
 # Create a parallel coordinates plot of the relationship between different features of billionaires
-fig = px.parallel_coordinates(billionaires, dimensions=['age', 'finalWorth', 'rank', 'cpi_country', 'gdp_country', 'gross_tertiary_education_enrollment', 'gross_primary_education_enrollment_country', 'life_expectancy_country', 'tax_revenue_country_country', 'total_tax_rate_country', 'population_country'])
+fig = px.parallel_coordinates(billionaires, dimensions=['age', 'finalWorth', 'rank', 'cpi_country', 'gdp_country',
+                                                        'gross_tertiary_education_enrollment',
+                                                        'gross_primary_education_enrollment_country',
+                                                        'life_expectancy_country', 'tax_revenue_country_country',
+                                                        'total_tax_rate_country', 'population_country'])
 fig.update_layout(title='Relationship Between Different Features of Billionaires')
 fig.show()
-
 
 # %% [code] {"execution":{"iopub.status.busy":"2023-10-29T08:55:06.22448Z","iopub.execute_input":"2023-10-29T08:55:06.225652Z","iopub.status.idle":"2023-10-29T08:55:06.396135Z","shell.execute_reply.started":"2023-10-29T08:55:06.225602Z","shell.execute_reply":"2023-10-29T08:55:06.395025Z"}}
 
@@ -409,12 +383,10 @@ fig = px.scatter(billionaires, x='age', y='finalWorth', size='finalWorth', color
 fig.update_layout(title='Relationship Between Age and Final Worth')
 fig.show()
 
-
 # %% [code] {"execution":{"iopub.status.busy":"2023-10-29T08:59:21.201672Z","iopub.execute_input":"2023-10-29T08:59:21.20214Z","iopub.status.idle":"2023-10-29T08:59:21.267886Z","shell.execute_reply.started":"2023-10-29T08:59:21.202096Z","shell.execute_reply":"2023-10-29T08:59:21.266691Z"}}
 # Create a pie chart of billionaires by country
 fig = px.pie(billionaires.head(100), values='finalWorth', names='country', title='TOp-100 Billionaires by Country')
 fig.show()
-
 
 # %% [code] {"execution":{"iopub.status.busy":"2023-10-29T09:00:50.504636Z","iopub.execute_input":"2023-10-29T09:00:50.50504Z","iopub.status.idle":"2023-10-29T09:00:50.608195Z","shell.execute_reply.started":"2023-10-29T09:00:50.505008Z","shell.execute_reply":"2023-10-29T09:00:50.606761Z"}}
 
@@ -422,13 +394,11 @@ fig.show()
 fig = px.bar(billionaires, x='country', y='rank', title='Billionaires by Country and Industry')
 fig.show()
 
-
 # %% [code] {"execution":{"iopub.status.busy":"2023-10-29T09:01:22.642907Z","iopub.execute_input":"2023-10-29T09:01:22.6434Z","iopub.status.idle":"2023-10-29T09:01:22.717953Z","shell.execute_reply.started":"2023-10-29T09:01:22.643364Z","shell.execute_reply":"2023-10-29T09:01:22.716642Z"}}
 
 # Create a scatter plot of final worth vs. age
 fig = px.scatter(billionaires, x='age', y='finalWorth', title='Final Worth vs. Age')
 fig.show()
 
-
 # %% [markdown]
-# # Work in progress 
+# # Work in progress
