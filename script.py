@@ -370,13 +370,13 @@ fig.show()
 
 # Create a parallel coordinates plot of the relationship between different features of billionaires
 pxBuilder = PxBuilder()
-fig = pxBuilder.withData(
+fig = pxBuilder.with_data(
     billionaires
-).withDimensions(
+).with_dimensions(
     ['age', 'finalWorth', 'rank', 'cpi_country', 'gdp_country', 'gross_tertiary_education_enrollment',
      'gross_primary_education_enrollment_country', 'life_expectancy_country', 'tax_revenue_country_country',
      'total_tax_rate_country', 'population_country']
-).withTitle(
+).with_title(
     'Relationship Between Different Features of Billionaires'
 ).build()
 fig.show()
