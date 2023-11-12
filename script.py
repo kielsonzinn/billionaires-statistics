@@ -9,6 +9,7 @@
 import os
 
 from builder.px_builder import PxBuilder
+from template.form_final_worth_by_country_display import FormFinalWorthByCountryDisplay
 
 for dirname, _, filenames in os.walk('/kaggle/input'):
     for filename in filenames:
@@ -317,11 +318,9 @@ plt.show()
 # %% [code] {"execution":{"iopub.status.busy":"2023-10-29T08:50:39.552364Z","iopub.execute_input":"2023-10-29T08:50:39.552807Z","iopub.status.idle":"2023-10-29T08:50:42.575502Z","shell.execute_reply.started":"2023-10-29T08:50:39.552776Z","shell.execute_reply":"2023-10-29T08:50:42.574304Z"}}
 import plotly.express as px
 
-# Choropleth map of final worth by country
-fig = px.choropleth(billionaires, locations='country', color='finalWorth', scope='world',
-                    color_continuous_scale='Viridis')
-fig.update_layout(title='Final Worth by Country')
-fig.show()
+form_age = FormFinalWorthByCountryDisplay()
+form_age.set_data(billionaires)
+form_age.show()
 
 # Bubble chart of final worth vs. age
 fig = px.scatter(billionaires, x='age', y='finalWorth', size='finalWorth', color='category')
