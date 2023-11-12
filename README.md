@@ -2,7 +2,7 @@
 
 ## Participantes
 
-- Cristina Luiza Pelepenko, 3024930
+- Cristina Luiza Pelepenko, 2034930
 - João Pedro Albano Menegati, 2033518
 - Kielson Zinn da Silva, 2003317
 
