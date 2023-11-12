@@ -8,6 +8,8 @@
 
 import os
 
+from builder.px_builder import PxBuilder
+
 for dirname, _, filenames in os.walk('/kaggle/input'):
     for filename in filenames:
         print(os.path.join(dirname, filename))
@@ -368,12 +370,16 @@ fig.show()
 # %% [code] {"execution":{"iopub.status.busy":"2023-10-29T08:54:46.813705Z","iopub.execute_input":"2023-10-29T08:54:46.814108Z","iopub.status.idle":"2023-10-29T08:54:46.888201Z","shell.execute_reply.started":"2023-10-29T08:54:46.814076Z","shell.execute_reply":"2023-10-29T08:54:46.887111Z"}}
 
 # Create a parallel coordinates plot of the relationship between different features of billionaires
-fig = px.parallel_coordinates(billionaires, dimensions=['age', 'finalWorth', 'rank', 'cpi_country', 'gdp_country',
-                                                        'gross_tertiary_education_enrollment',
-                                                        'gross_primary_education_enrollment_country',
-                                                        'life_expectancy_country', 'tax_revenue_country_country',
-                                                        'total_tax_rate_country', 'population_country'])
-fig.update_layout(title='Relationship Between Different Features of Billionaires')
+pxBuilder = PxBuilder()
+fig = pxBuilder.withData(
+    billionaires
+).withDimensions(
+    ['age', 'finalWorth', 'rank', 'cpi_country', 'gdp_country', 'gross_tertiary_education_enrollment',
+     'gross_primary_education_enrollment_country', 'life_expectancy_country', 'tax_revenue_country_country',
+     'total_tax_rate_country', 'population_country']
+).withTitle(
+    'Relationship Between Different Features of Billionaires'
+).build()
 fig.show()
 
 # %% [code] {"execution":{"iopub.status.busy":"2023-10-29T08:55:06.22448Z","iopub.execute_input":"2023-10-29T08:55:06.225652Z","iopub.status.idle":"2023-10-29T08:55:06.396135Z","shell.execute_reply.started":"2023-10-29T08:55:06.225602Z","shell.execute_reply":"2023-10-29T08:55:06.395025Z"}}
